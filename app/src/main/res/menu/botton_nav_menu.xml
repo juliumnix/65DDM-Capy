@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Mensagens"
+            android:icon="@drawable/ic_baseline_chat_24"
+            android:id="@+id/mensagens"
+        />
+    <item android:title="Usuarios"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:id="@+id/usuarios"
+        />
+    <item android:title="Configurações"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:id="@+id/configuracoes"
+        />
+</menu>
