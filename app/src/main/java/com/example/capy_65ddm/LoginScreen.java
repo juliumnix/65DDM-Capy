@@ -1,5 +1,8 @@
 package com.example.capy_65ddm;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -7,7 +10,10 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -38,10 +44,31 @@ public class LoginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
+
+        Rect rectangle = new Rect();
+        Window window = getWindow();
+        window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
+        int statusBarHeight = rectangle.top;
+        int contentViewTop =
+                window.findViewById(Window.ID_ANDROID_CONTENT).getTop();
+        int titleBarHeight= contentViewTop - statusBarHeight;
+
+        Log.i("*** Elenasys :: ", "StatusBar Height= " + statusBarHeight + " , TitleBar Height = " + titleBarHeight);
+
+
         setContentView(R.layout.activity_login_screen);
 
         ImageView btn_eye =findViewById(R.id.btn_eye);
         EditText edt_senha = findViewById(R.id.edt_senha);
+        Button btn_login = findViewById(R.id.btn_login);
+
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(LoginScreen.this, HomeScreen.class);
+                startActivity(in);
+            }
+        });
 
         btn_eye.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,5 +87,12 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
+    }
+    public int getStatus(Activity activity){
+        Rect rectangle = new Rect();
+        Window window = activity.getWindow();
+        window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
+        System.out.println("AUISHCUISHVAUSIHVUHUISAHVVHUIHSAHVAUSHASUIHASVUIASHAVUIASHUI" + rectangle );
+        return rectangle.top;
     }
 }
