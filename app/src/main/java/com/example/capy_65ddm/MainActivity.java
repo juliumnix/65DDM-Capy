@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
                         in.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(in);
                         setContentView(R.layout.activity_main);
+                        finish();
                     }
                 },
                 3000);

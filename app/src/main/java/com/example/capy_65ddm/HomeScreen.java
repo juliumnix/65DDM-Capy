@@ -25,21 +25,25 @@ public class HomeScreen extends AppCompatActivity {
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.home:
-                    replaceFragment(new HomeFragment());
-                    break;
-                case R.id.mensagens:
-                    replaceFragment(new MensagensFragment());
+                    if(savedInstanceState == null){
+                        replaceFragment(new HomeFragment());
+                    }
                     break;
                 case R.id.usuarios:
-                    replaceFragment(new UsuariosFragment());
+                    if(savedInstanceState == null){
+                        replaceFragment(new UsuariosFragment());
+                    }
                     break;
                 case R.id.configuracoes:
-                    replaceFragment(new ConfiguracoesFragment());
+                    if(savedInstanceState == null){
+                        replaceFragment(new ConfiguracoesFragment());
+                    }
                     break;
             }
             return true;
         });
     }
+
 
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();

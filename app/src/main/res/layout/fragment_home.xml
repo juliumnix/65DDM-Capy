@@ -4,13 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".HomeFragment"
+    android:fitsSystemWindows="true">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:clipToPadding="false"
+        >
 
         <View
             android:id="@+id/view3"
@@ -72,7 +75,7 @@
             app:layout_constraintVertical_bias="0.695" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/txtMsg"
             android:layout_width="1.8in"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -105,10 +108,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.952"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+            app:layout_constraintTop_toBottomOf="@+id/txtMsg"
             app:layout_constraintVertical_bias="0.0"
             app:strokeColor="#1E89D9"
             app:strokeWidth="3dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="531dp"
+            android:clipToPadding="false"
+            android:paddingBottom="65dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view3"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

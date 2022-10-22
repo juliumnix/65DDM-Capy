@@ -67,6 +67,7 @@ public class LoginScreen extends AppCompatActivity {
             public void onClick(View view) {
                 Intent in = new Intent(LoginScreen.this, HomeScreen.class);
                 startActivity(in);
+                finish();
             }
         });
 
@@ -87,12 +88,5 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
-    }
-    public int getStatus(Activity activity){
-        Rect rectangle = new Rect();
-        Window window = activity.getWindow();
-        window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
-        System.out.println("AUISHCUISHVAUSIHVUHUISAHVVHUIHSAHVAUSHASUIHASVUIASHAVUIASHUI" + rectangle );
-        return rectangle.top;
     }
 }

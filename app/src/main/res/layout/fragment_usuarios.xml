@@ -3,15 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UsuariosFragment"
-    android:background="#2261">
+    tools:context=".UsuariosFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Tela Usuários"
-        android:textSize="24dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:fitsSystemWindows="true"
+        android:id="@+id/recyclerUsuarios"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="65dp"/>
 
 </FrameLayout>
