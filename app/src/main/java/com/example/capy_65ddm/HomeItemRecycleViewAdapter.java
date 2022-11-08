@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -16,10 +15,10 @@ import java.util.List;
 
 class HomeItemRecyclerViewAdapter extends RecyclerView.Adapter<HomeItemRecyclerViewAdapter.ViewHolder> {
 
-    private List<Aluno> alunos;
+    private List<Usuario> usuarios;
 
-    public HomeItemRecyclerViewAdapter(List<Aluno> alunos) {
-        this.alunos = alunos;
+    public HomeItemRecyclerViewAdapter(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -49,14 +48,14 @@ class HomeItemRecyclerViewAdapter extends RecyclerView.Adapter<HomeItemRecyclerV
 
     @Override
     public void onBindViewHolder(@NonNull HomeItemRecyclerViewAdapter.ViewHolder holder, int position) {
-        Aluno aluno = alunos.get(position);
-        holder.txtEmail.setText(aluno.getEmail());
-        holder.txtNome.setText(aluno.getNome());
+        Usuario usuario = usuarios.get(position);
+        holder.txtEmail.setText(usuario.getEmail());
+        holder.txtNome.setText(usuario.getNome());
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent in = new Intent(holder.layout.getContext(), PerfilScreen.class);
-                in.putExtra("NomeUsuario", aluno.getNome());
+                in.putExtra("NomeUsuario", usuario.getNome());
                 holder.layout.getContext().startActivity(in);
             }
         });
@@ -64,6 +63,6 @@ class HomeItemRecyclerViewAdapter extends RecyclerView.Adapter<HomeItemRecyclerV
 
     @Override
     public int getItemCount() {
-        return alunos.size();
+        return usuarios.size();
     }
 }

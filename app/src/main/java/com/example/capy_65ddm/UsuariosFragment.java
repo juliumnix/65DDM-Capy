@@ -9,15 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class UsuariosFragment extends Fragment {
     private RecyclerView recyclerView;
-    List<Aluno> alunos = new ArrayList<>();
+    List<Usuario> usuarios = new ArrayList<>();
     private ContatosItemRecycleViewAdapter adapter;
     public UsuariosFragment() {
         // Required empty public constructor
@@ -39,18 +37,18 @@ public class UsuariosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_usuarios, container, false);
-//        TextView txtNome = view.findViewById(R.id.txtNome);
-        adapter = new ContatosItemRecycleViewAdapter(alunos);
+
+        adapter = new ContatosItemRecycleViewAdapter(usuarios);
 
         recyclerView = view.findViewById(R.id.recyclerUsuarios);
 
         for(int i=0; i< 10; i++) {
-            alunos.add(new Aluno("Usuario " + i, "Credo que delicia", i+"\n"));
+            usuarios.add(new Usuario("Usuario " + i, "Credo que delicia", i+"\n"));
         }
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new ContatosItemRecycleViewAdapter(alunos));
+        recyclerView.setAdapter(new ContatosItemRecycleViewAdapter(usuarios));
 
         return view;
 

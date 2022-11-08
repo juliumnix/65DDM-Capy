@@ -35,7 +35,7 @@
         app:srcCompat="@drawable/logo" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_enviar"
         android:layout_width="173dp"
         android:layout_height="49dp"
         android:text="LOGIN"
@@ -54,7 +54,7 @@
         app:strokeWidth="1dp" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/txtEmailLogin"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="44dp"
@@ -72,14 +72,14 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/btn_login"
+        app:layout_constraintBottom_toTopOf="@+id/btn_enviar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress">
+        app:layout_constraintTop_toBottomOf="@+id/txtEmailLogin">
 
         <EditText
-            android:id="@+id/edt_senha"
+            android:id="@+id/txtSenhaLogin"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:background="@drawable/custom_input"
@@ -88,10 +88,10 @@
             android:hint="Senha"
             android:inputType="textPassword"
             android:paddingRight="60dp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_login"
+            app:layout_constraintBottom_toTopOf="@+id/btn_enviar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
+            app:layout_constraintTop_toBottomOf="@+id/txtEmailLogin"
             app:passwordToggleEnabled="true" />
 
         <ImageButton

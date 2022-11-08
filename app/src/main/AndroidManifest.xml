@@ -15,14 +15,21 @@
         android:theme="@style/Theme.Capy_65DDM"
         tools:targetApi="31">
         <activity
+            android:name=".ChatScreen"
+            android:exported="true" >
+
+        </activity>
+        <activity
             android:name=".PerfilScreen"
             android:exported="true"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".HomeScreen"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan" >
+
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -33,13 +40,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".LoginScreen"
             android:exported="true"
             android:label="@string/title_activity_login_screen"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Capy_65DDM.NoActionBar"></activity>
+            android:theme="@style/Theme.Capy_65DDM.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"

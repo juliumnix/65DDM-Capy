@@ -10,6 +10,7 @@
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/drawable/custom_input_menu.xml" value="0.2355" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/drawable/custom_shape_amigos.xml" value="0.1305" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.18" />
+        <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.129" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.2355" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/drawable/ic_baseline_chat_bubble_outline_24.xml" value="0.1305" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/drawable/ic_baseline_people_alt_24.xml" value="0.18" />
@@ -19,19 +20,23 @@
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/drawable/ic_baseline_visibility_off_24.xml" value="0.1" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2355" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/drawable/tste.xml" value="0.1" />
-        <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/activity_chat_screen.xml" value="0.25" />
+        <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/activity_chat_screen.xml" value="0.18" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/activity_home_screen.xml" value="0.2" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/activity_login_screen.xml" value="0.25" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/activity_perfil_screen.xml" value="0.33" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/activity_teste_tela.xml" value="0.22871376811594202" />
+        <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/content_chat_screen.xml" value="0.19067028985507245" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/fragment_configuracoes.xml" value="0.33" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/fragment_dashboard.xml" value="0.3625" />
+        <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/fragment_first.xml" value="0.19429347826086957" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/fragment_mensagens.xml" value="0.2671875" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/fragment_notifications.xml" value="0.3625" />
+        <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/fragment_second.xml" value="0.19429347826086957" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/fragment_usuarios.xml" value="0.2671875" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/layout_adapter_aluno.xml" value="0.26141078838174275" />
+        <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/layout_adapter_chat.xml" value="0.25" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/layout_adapter_contato.xml" value="0.33" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/layout/layout_adapter_homeitem.xml" value="0.17603850050658562" />
         <entry key="..\:/workspace/Capy_65DDM/app/src/main/res/menu/botton_nav_menu.xml" value="0.1" />

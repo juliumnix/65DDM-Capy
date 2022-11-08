@@ -16,10 +16,11 @@ import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
-    List<Aluno> alunos = new ArrayList<>();
+    Stack<Usuario> usuarios = new Stack<>();
     private HomeItemRecyclerViewAdapter adapter;
 
 
@@ -47,31 +48,30 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         // Inflate the layout for this fragment
-        MaterialButton btnLogin = view.findViewById(R.id.btn_login);
+        MaterialButton btnLogin = view.findViewById(R.id.btn_enviar);
         EditText txtMsg = view.findViewById(R.id.txtMsg);
-        adapter = new HomeItemRecyclerViewAdapter(alunos);
+        adapter = new HomeItemRecyclerViewAdapter(usuarios);
 
         recyclerView = view.findViewById(R.id.recycler);
 
 
-            for(int i=0; i< 10; i++) {
-                alunos.add(new Aluno("Usuario " + i, "Credo que delicia", i+"\n"));
-            }
-
-            Collections.reverse(alunos);
+//            for(int i=0; i< 10; i++) {
+//                usuarios.add(new Usuario("Usuario " + i, "Credo que delicia", i+"\n"));
+//            }
+//
+//            Collections.reverse(usuarios);
 
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
             recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(new HomeItemRecyclerViewAdapter(alunos));
+            recyclerView.setAdapter(new HomeItemRecyclerViewAdapter(usuarios));
             btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                criarPost(txtMsg.getText().toString(), "usuario gostoso", adapter);
-                    Aluno aluno = new Aluno("Capy user", txtMsg.getText().toString(), (Math.random() + "oi"));
-                    alunos.add(aluno);
+                    Usuario usuario = new Usuario("Capy user", txtMsg.getText().toString(), usuarios.size()+1+"");
+                    usuarios.add(usuario);
                     adapter.notifyDataSetChanged();
-                    recyclerView.setAdapter(new HomeItemRecyclerViewAdapter(alunos));
-                    Collections.reverse(alunos);
+                    recyclerView.setAdapter(new HomeItemRecyclerViewAdapter(usuarios));
+
                 }
             });
 

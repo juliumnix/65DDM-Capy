@@ -1,11 +1,11 @@
 package com.example.capy_65ddm;
 
-public class Aluno {
+public class Usuario {
     private String nome;
     private String email;
     private String matricula;
 
-    public Aluno(String nome, String email, String matricula) {
+    public Usuario(String nome, String email, String matricula) {
         this.nome = nome;
         this.email = email;
         this.matricula = matricula;

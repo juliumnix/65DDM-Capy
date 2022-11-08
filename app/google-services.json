@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "191039423423",
+    "project_id": "capy65ddm",
+    "storage_bucket": "capy65ddm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191039423423:android:76b0a0ddd78eeb1392170a",
+        "android_client_info": {
+          "package_name": "com.example.capy_65ddm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "191039423423-pgc0o675gka5j8hhulgcta4t1j8jueq5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnQKYZ1gO1LqOIS_0RGMPMi660l_PQzIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "191039423423-pgc0o675gka5j8hhulgcta4t1j8jueq5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
