@@ -1,14 +1,19 @@
 package com.example.capy_65ddm;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 public class Usuario {
     private String nome;
     private String email;
-    private String matricula;
 
-    public Usuario(String nome, String email, String matricula) {
+    public Usuario(String nome, String email) {
         this.nome = nome;
         this.email = email;
-        this.matricula = matricula;
+
     }
 
     public String getNome() {
@@ -29,18 +34,8 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Aluno{" +
+        return "Usuario{" +
                 "nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", matricula='" + matricula + '\'' +
-                '}';
-    }
-
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+                ", email='" + email;
     }
 }

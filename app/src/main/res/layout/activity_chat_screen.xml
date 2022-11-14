@@ -49,15 +49,15 @@
         android:id="@+id/recyclerViewChat"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/view6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.0"
-        app:stackFromEnd="false"
         app:reverseLayout="true"
-        />
+        app:stackFromEnd="false" />
 
     <View
         android:id="@+id/view6"
@@ -94,5 +94,18 @@
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewChat"
         app:srcCompat="@drawable/ic_baseline_arrow_forward_24"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <View
+        android:id="@+id/online_indicator"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:background="@drawable/circular"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.035"
+        app:layout_constraintStart_toEndOf="@+id/nomeUsuarioChat"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.567" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -68,6 +69,11 @@ public class ConfiguracoesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_configuracoes, container, false);
         Button btnSair = view.findViewById(R.id.btn_sair_logout);
+        TextView nomeUsuarioConfig = view.findViewById(R.id.nomeUsuarioConfig);
+
+        String[] nome = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString().split("@");
+
+        nomeUsuarioConfig.setText("CAPYBARA " + nome[0].toUpperCase());
         btnSair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

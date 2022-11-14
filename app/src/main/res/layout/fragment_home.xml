@@ -8,6 +8,15 @@
     android:fitsSystemWindows="true">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <ProgressBar
+        android:id="@+id/progressBarHomeFrag"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="#229CF7" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,29 +44,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="5dp"
-            app:cardCornerRadius="40dp"
-            app:layout_constraintBottom_toBottomOf="@+id/view3"
-            app:layout_constraintEnd_toEndOf="@+id/view3"
-            app:layout_constraintHorizontal_bias="0.048"
-            app:layout_constraintStart_toStartOf="@+id/view3"
-            app:layout_constraintTop_toBottomOf="@+id/view"
-            app:layout_constraintVertical_bias="0.471">
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/cardView"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginStart="5dp"-->
+<!--            app:cardCornerRadius="40dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/view3"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/view3"-->
+<!--            app:layout_constraintHorizontal_bias="0.048"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/view3"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/view"-->
+<!--            app:layout_constraintVertical_bias="0.471">-->
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:src="@drawable/capy_home"
-                tools:layout_editor_absoluteX="43dp"
-                tools:layout_editor_absoluteY="110dp" />
-        </androidx.cardview.widget.CardView>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_user_home_1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/view3"
+            app:layout_constraintEnd_toStartOf="@+id/txtMsg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view3" />
+<!--        </androidx.cardview.widget.CardView>-->
 
         <TextView
             android:id="@+id/textView6"
@@ -112,6 +122,16 @@
             app:layout_constraintVertical_bias="0.0"
             app:strokeColor="#1E89D9"
             app:strokeWidth="3dp" />
+
+        <ProgressBar
+            android:id="@+id/loading_img_user_home"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/img_user_home_1"
+            app:layout_constraintEnd_toEndOf="@+id/img_user_home_1"
+            app:layout_constraintStart_toStartOf="@+id/img_user_home_1"
+            app:layout_constraintTop_toTopOf="@+id/img_user_home_1" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
