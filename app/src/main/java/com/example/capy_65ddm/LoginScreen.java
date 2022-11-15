@@ -23,7 +23,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 //import com.example.capy_65ddm.databinding.ActivityLoginScreenBinding;
 
@@ -75,12 +77,14 @@ public class LoginScreen extends AppCompatActivity {
                 String[] nome = email.split("@");
 
                 HashMap<String, Object> usuarioNovo = new HashMap<>();
+                List<String> amigos = new ArrayList<>();
 
                 usuarioNovo.put("nome", nome[0]);
                 usuarioNovo.put("email", email);
                 usuarioNovo.put("token", token);
                 usuarioNovo.put("disponivel", 0);
                 usuarioNovo.put("img", "https://studentsgowest.com/wp-content/uploads/default-profile-image-png-1-Transparent-Images-300x300.png");
+                usuarioNovo.put("amigos", amigos);
 
 
                 if(email.equals("") || password.equals("")){

@@ -36,6 +36,7 @@ public class UsuariosFragment extends Fragment {
     private FirebaseFirestore db;
 
     private ContatosItemRecycleViewAdapter adapter;
+    private List<String> amigos;
     public UsuariosFragment() {
         // Required empty public constructor
     }
@@ -73,7 +74,7 @@ public class UsuariosFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_usuarios, container, false);
         db = FirebaseFirestore.getInstance();
-
+        String[] usuarioNome = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString().split("@");
         NotificationManager nMgr = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
         nMgr.cancelAll();
 
@@ -96,19 +97,38 @@ public class UsuariosFragment extends Fragment {
                     List<String> list = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         list.add(document.getId());
-                        Usuario user = new Usuario(document.getData().get("nome").toString(),document.getData().get("email").toString());
-                        user.setImg(document.getData().get("img").toString());
-                        usuarios.add(user);
-                    }
-                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-                    recyclerView.setLayoutManager(layoutManager);
-                    recyclerView.setAdapter(new ContatosItemRecycleViewAdapter(usuarios, getActivity()));
-                    recyclerView.setVisibility(view.VISIBLE);
-                    progressBar.setVisibility(view.INVISIBLE);
+                        if(document.getData().get("nome").toString().equalsIgnoreCase(usuarioNome[0])){
+                            amigos = (List<String>)document.getData().get("amigos");
+                            for (String amigoNaLista: amigos){
+                                db.collection("Usuarios").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task2) {
+                                        if(task2.isSuccessful()){
+                                            for (QueryDocumentSnapshot snapshotDocument: task2.getResult()){
+                                                if(snapshotDocument.getData().get("nome").toString().equalsIgnoreCase(amigoNaLista)){
+                                                    Usuario user = new Usuario(snapshotDocument.getData().get("nome").toString(),snapshotDocument.getData().get("email").toString());
+                                                    user.setImg(snapshotDocument.getData().get("img").toString());
+                                                    usuarios.add(user);RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+                                                    recyclerView.setLayoutManager(layoutManager);
+                                                    recyclerView.setAdapter(new ContatosItemRecycleViewAdapter(usuarios, getActivity()));
+                                                    recyclerView.setVisibility(view.VISIBLE);
+                                                    progressBar.setVisibility(view.INVISIBLE);
 
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                    }
                 }
             }
         });
+
+
+
 
 
 

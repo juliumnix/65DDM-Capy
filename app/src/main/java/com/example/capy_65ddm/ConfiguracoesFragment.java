@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -23,6 +24,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,7 +87,9 @@ public class ConfiguracoesFragment extends Fragment {
         TextView nomeUsuarioConfig = view.findViewById(R.id.nomeUsuarioConfig);
         ImageView imgUser = view.findViewById(R.id.imgUserConfiguracao);
         ProgressBar loading = view.findViewById(R.id.loading_img_config);
-
+        EditText edit_url_config = view.findViewById(R.id.edit_url_config);
+        TextView amigos_tela_config = view.findViewById(R.id.amigos_tela_config);
+        Button btn_editar = view.findViewById(R.id.btn_editar);
         String[] nome = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString().split("@");
 
 
@@ -107,9 +112,26 @@ public class ConfiguracoesFragment extends Fragment {
                     for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
                         if(documentSnapshot.getData().get("nome").toString().equalsIgnoreCase(nome[0])){
                             new DownloadImage(imgUser, loading).execute(documentSnapshot.getData().get("img").toString());
+                            List<String> amigos = (List<String>) documentSnapshot.getData().get("amigos");
+                            amigos_tela_config.setText(Integer.toString(amigos.size()));
+                            edit_url_config.setHint(documentSnapshot.getData().get("img").toString());
                         }
                     }
                 }
+            }
+        });
+
+        btn_editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(edit_url_config.getText().toString().isEmpty()){
+                    return;
+                }
+                db.collection("Usuarios").document(nome[0]).update("img", edit_url_config.getText().toString());
+                loading.setVisibility(View.VISIBLE);
+                new DownloadImage(imgUser, loading).execute(edit_url_config.getText().toString());
+                edit_url_config.setText("");
+                edit_url_config.setHint(edit_url_config.getText().toString());
             }
         });
         // Inflate the layout for this fragment

@@ -129,7 +129,6 @@ class HomeItemRecyclerViewAdapter extends RecyclerView.Adapter<HomeItemRecyclerV
     }
 
     private void retornaLikes(MensagemReceiverModel mensagemReceiverModel, ViewHolder holder){
-        StringBuilder retorno = new StringBuilder();
         db.collection("Postagens").document(mensagemReceiverModel.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -154,5 +153,4 @@ class HomeItemRecyclerViewAdapter extends RecyclerView.Adapter<HomeItemRecyclerV
             }
         });
     }
-
 }
