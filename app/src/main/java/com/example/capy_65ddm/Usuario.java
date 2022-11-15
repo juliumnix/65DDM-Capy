@@ -9,11 +9,20 @@ import com.google.firebase.messaging.FirebaseMessaging;
 public class Usuario {
     private String nome;
     private String email;
+    private String img;
 
     public Usuario(String nome, String email) {
         this.nome = nome;
         this.email = email;
 
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public String getNome() {
@@ -36,6 +45,8 @@ public class Usuario {
     public String toString() {
         return "Usuario{" +
                 "nome='" + nome + '\'' +
-                ", email='" + email;
+                ", email='" + email + '\'' +
+                ", img='" + img + '\'' +
+                '}';
     }
 }

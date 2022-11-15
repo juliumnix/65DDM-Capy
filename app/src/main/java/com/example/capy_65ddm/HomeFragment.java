@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -18,7 +19,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -30,9 +30,10 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
-    Deque<Usuario> usuarios = new LinkedList<>();
+    Deque<MensagemReceiverModel> mensagens = new LinkedList<>();
     private HomeItemRecyclerViewAdapter adapter;
     private FirebaseFirestore db;
+    private int validadorDownload = 0;
 
     int size = 0;
 
@@ -56,23 +57,32 @@ public class HomeFragment extends Fragment {
     }
 
 
+    private void retornaImage(Usuario user){
+        System.out.println(user.getNome());
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        StringBuilder imagemURL = new StringBuilder();
+
         MaterialButton btnEnviar = view.findViewById(R.id.btn_enviar);
         EditText txtMsg = view.findViewById(R.id.txtMsg);
 
 
-        ImageView imgUser = view.findViewById(R.id.img_user_home_1);
+        ImageView imgUser = view.findViewById(R.id.img_user_home);
         ProgressBar loading_img_user_home = view.findViewById(R.id.loading_img_user_home);
+
+        ImageButton like_button = view.findViewById(R.id.like_button);
 
 
         db = FirebaseFirestore.getInstance();
 
 
-        adapter = new HomeItemRecyclerViewAdapter((List<Usuario>) usuarios);
+        adapter = new HomeItemRecyclerViewAdapter((List<MensagemReceiverModel>) mensagens, getActivity());
         recyclerView = view.findViewById(R.id.recycler);
         ProgressBar progressBar = view.findViewById(R.id.progressBarHomeFrag);
 
@@ -80,25 +90,8 @@ public class HomeFragment extends Fragment {
         recyclerView.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
 
-        db.collection("Postagens").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
 
-                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                        size++;
-                        Usuario user = new Usuario(documentSnapshot.getData().get("nome").toString(), documentSnapshot.getData().get("mensagem").toString());
-                        usuarios.addFirst(user);
-                        recyclerView.setAdapter(new HomeItemRecyclerViewAdapter((List<Usuario>) usuarios));
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
-                        recyclerView.setLayoutManager(linearLayoutManager);
-
-                    }
-                }
-                recyclerView.setVisibility(View.VISIBLE);
-            }
-        });
         String[] nome = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString().split("@");
         db.collection("Usuarios").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -106,15 +99,46 @@ public class HomeFragment extends Fragment {
                 if(task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         if(document.getData().get("nome").toString().equalsIgnoreCase(nome[0])){
-                            new DownloadImage(imgUser).execute(document.getData().get("img").toString());
+                            new DownloadImage(imgUser, loading_img_user_home).execute(document.getData().get("img").toString());
+                            imagemURL.append(document.getData().get("img").toString());
                         }
-
                     }
                 }
             }
         });
 
+        db.collection("Postagens").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                        db.collection("Usuarios").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        if(document.getData().get("nome").toString().equalsIgnoreCase(documentSnapshot.getData().get("nome").toString())){
+                                            size++;
+                                            MensagemReceiverModel user = new MensagemReceiverModel(documentSnapshot.getData().get("nome").toString(),
+                                                    documentSnapshot.getData().get("mensagem").toString(),
+                                                    documentSnapshot.getData().get("like").toString(),
+                                                    documentSnapshot.getData().get("id").toString());
+                                            user.setImg(document.getData().get("img").toString());
+                                            mensagens.addFirst(user);
+                                            recyclerView.setAdapter(new HomeItemRecyclerViewAdapter((List<MensagemReceiverModel>) mensagens, getActivity()));
+                                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
+                                            recyclerView.setLayoutManager(linearLayoutManager);
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+                recyclerView.setVisibility(View.VISIBLE);
+            }
+        });
 
             String[] usuarioNome = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString().split("@");
 
@@ -122,30 +146,50 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     progressBar.setVisibility(view.VISIBLE);
-                    Usuario usuario = new Usuario(usuarioNome[0], txtMsg.getText().toString());
-                    HashMap<String, Object> postagem = new HashMap<>();
-                    postagem.put("nome", usuarioNome[0]);
-                    postagem.put("mensagem", txtMsg.getText().toString());
-                    postagem.put("id",size);
-                    size++;
-                    db.collection("Postagens").document(String.valueOf(size-1)).set(postagem).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    if(txtMsg.getText().toString().isEmpty()){
+                        return;
+                    }
+                    db.collection("Usuarios").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            adapter.notifyDataSetChanged();
-                            usuarios.addFirst(usuario);
-                            recyclerView.setAdapter(new HomeItemRecyclerViewAdapter((List<Usuario>) usuarios));
-                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
-                            recyclerView.setLayoutManager(linearLayoutManager);
-                            progressBar.setVisibility(view.INVISIBLE);
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    if(document.getData().get("nome").toString().equalsIgnoreCase(usuarioNome[0])){
+                                        MensagemReceiverModel usuario = new MensagemReceiverModel(usuarioNome[0], txtMsg.getText().toString(), "0", Integer.toString(size));
+                                        HashMap<String, Object> postagem = new HashMap<>();
+                                        postagem.put("nome", usuarioNome[0]);
+                                        postagem.put("mensagem", txtMsg.getText().toString());
+                                        postagem.put("id",size);
+                                        postagem.put("like", 0);
+                                        size++;
+                                        usuario.setImg(document.getData().get("img").toString());
+                                        db.collection("Postagens").document(String.valueOf(size-1)).set(postagem).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                adapter.notifyDataSetChanged();
+                                                mensagens.addFirst(usuario);
+                                                recyclerView.setAdapter(new HomeItemRecyclerViewAdapter((List<MensagemReceiverModel>) mensagens, getActivity()));
+                                                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
+                                                recyclerView.setLayoutManager(linearLayoutManager);
+                                                progressBar.setVisibility(view.INVISIBLE);
+                                                txtMsg.setText("");
+                                            }
+                                        });
+                                    }
+                                }
+                            }
                         }
                     });
-
                 }
             });
+
+
+
 
         progressBar.setVisibility(view.INVISIBLE);
         return view;
     }
+
 
 
 }

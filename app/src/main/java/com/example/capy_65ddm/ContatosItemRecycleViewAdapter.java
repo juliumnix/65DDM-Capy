@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,13 +47,14 @@ public class ContatosItemRecycleViewAdapter extends RecyclerView.Adapter<Contato
         ImageView imagem;
         View onlineIndicator;
         ConstraintLayout layout;
+        ProgressBar progressBar;
         public ViewHolder(View itemView){
             super(itemView);
             txtNome = itemView.findViewById(R.id.txtNome);
             layout = itemView.findViewById(R.id.layoutContato);
             imagem = itemView.findViewById(R.id.img_capy_contato);
             onlineIndicator = itemView.findViewById(R.id.online_indicator_usuario);
-
+            progressBar = itemView.findViewById(R.id.loading_img_contato);
         }
     }
 
@@ -98,6 +100,7 @@ public class ContatosItemRecycleViewAdapter extends RecyclerView.Adapter<Contato
 
 
         String[] nome = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString().split("@");
+
         db.collection("Usuarios").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -117,6 +120,8 @@ public class ContatosItemRecycleViewAdapter extends RecyclerView.Adapter<Contato
         listenAvailabilityOfReceiver(holder.onlineIndicator, usuario.getNome());
 
         holder.txtNome.setText(usuario.getNome());
+        new DownloadImage(holder.imagem, holder.progressBar).execute(usuario.getImg());
+
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,10 +133,6 @@ public class ContatosItemRecycleViewAdapter extends RecyclerView.Adapter<Contato
                 holder.layout.getContext().startActivity(in);
             }
         });
-
-        new DownloadImage(holder.imagem).execute("https://pbs.twimg.com/media/EXSG-shXQAUAati.jpg");
-
-
     }
 
     @Override
