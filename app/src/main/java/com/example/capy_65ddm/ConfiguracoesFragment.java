@@ -4,16 +4,25 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +30,8 @@ import com.google.firebase.auth.FirebaseUser;
  * create an instance of this fragment.
  */
 public class ConfiguracoesFragment extends Fragment {
+
+    private FirebaseFirestore db;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,6 +68,7 @@ public class ConfiguracoesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = FirebaseFirestore.getInstance();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -70,8 +82,11 @@ public class ConfiguracoesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_configuracoes, container, false);
         Button btnSair = view.findViewById(R.id.btn_sair_logout);
         TextView nomeUsuarioConfig = view.findViewById(R.id.nomeUsuarioConfig);
+        ImageView imgUser = view.findViewById(R.id.imgUserConfiguracao);
+        ProgressBar loading = view.findViewById(R.id.loading_img_config);
 
         String[] nome = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString().split("@");
+
 
         nomeUsuarioConfig.setText("CAPYBARA " + nome[0].toUpperCase());
         btnSair.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +97,19 @@ public class ConfiguracoesFragment extends Fragment {
                 startActivity(in);
                 getActivity().finish();
 
+            }
+        });
+
+        db.collection("Usuarios").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                        if(documentSnapshot.getData().get("nome").toString().equalsIgnoreCase(nome[0])){
+                            new DownloadImage(imgUser, loading).execute(documentSnapshot.getData().get("img").toString());
+                        }
+                    }
+                }
             }
         });
         // Inflate the layout for this fragment

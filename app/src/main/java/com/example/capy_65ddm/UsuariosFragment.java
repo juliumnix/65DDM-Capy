@@ -97,6 +97,7 @@ public class UsuariosFragment extends Fragment {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         list.add(document.getId());
                         Usuario user = new Usuario(document.getData().get("nome").toString(),document.getData().get("email").toString());
+                        user.setImg(document.getData().get("img").toString());
                         usuarios.add(user);
                     }
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
